@@ -16,6 +16,8 @@
     <body>
         @include('commons.navbar')
         
+        @yield('cover')
+        
         <div class="container">
             @yield('content')
         </div>

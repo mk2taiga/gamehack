@@ -7,12 +7,14 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class WelcomeController extends Controller
+use App\User;
+
+class UsersController extends Controller
 {
     
     public function index()
     {
-        return view('welcome');
+        //
     }
 
     
@@ -30,7 +32,11 @@ class WelcomeController extends Controller
     
     public function show($id)
     {
-        //
+        $user = User::find($id);
+        
+        return view('users.show', [
+            'user' => $user,
+        ]);
     }
 
     

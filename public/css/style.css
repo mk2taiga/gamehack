@@ -15,3 +15,12 @@ input.btn.btn-hack {
 input.btn {
     color: #FFFFFF;
 }
+
+.panel-default .panel-heading {
+    background-color: #00b0ad;
+    color: #FFFFFF;
+}
+
+.user-profile button {
+    width: 100%;
+}

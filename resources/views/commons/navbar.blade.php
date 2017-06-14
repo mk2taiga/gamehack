@@ -36,7 +36,7 @@ avbar-collapse-1" aria-expanded="false">
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="#">マイページ</a>
+                                    {!! link_to_route('users.show', 'マイページ', ['id' => Auth::user()->id]) !!}
                                 </li>
                                 <li role="separator" class="divider"></li>
                                 <li>
