@@ -16,28 +16,63 @@ class User extends Model implements AuthenticatableContract,
 {
     use Authenticatable, Authorizable, CanResetPassword;
 
-    /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
     protected $table = 'users';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = ['name', 'email', 'password'];
 
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
     protected $hidden = ['password', 'remember_token'];
     
-    public function tweets() {
+    public function tweets()
+    {
         return $this->hasMany(Tweet::class);
     }
+    //フォローのためのメソッド
+    public function followings()
+    {
+        return $this->belongsToMany(User::class, 'user_follow', 'user_id', 'follow_id')->withTimestamps();
+    }
+    
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'user_follow', 'follow_id', 'user_id')->withTimestamps();
+    }
+    
+    public function follow($userId)
+    {
+        // 既にフォローしているかの確認
+        $exist = $this->is_following($userId);
+        // 自分自身ではないかの確認
+        $its_me = $this->id == $userId;
+        
+        if ($exist || $its_me) {
+            // 既にフォローしていれば何もしない
+            return false;
+        } else {
+            // 未フォローであればフォローする
+            $this->followings()->attach($userId);
+            return true;
+        }
+    }
+    
+    public function unfollow($userId)
+    {
+        // 既にフォローしているかの確認
+        $exist = $this->is_following($userId);
+        // 自分自身ではないかの確認
+        $its_me = $this->id == $userId;
+        
+        if ($exist && !$its_me) {
+            // 既にフォローしていればフォローを外す
+            $this->followings()->detach($userId);
+            return true;
+        } else {
+            // 未フォローであれば何もしない
+            return false;
+        }
+    }
+    
+    public function is_following($userId) {
+        return $this->followings()->where('follow_id', $userId)->exists();
+    }
+    //ここまで
 }

@@ -25,9 +25,7 @@
                 <li role="presentation" class="{{ Request::is('users/*/followings') ? 'active' : '' }}"><a href="{{ route('users.followings', ['id' => $user->id]) }}">フォロー <span class="badge">{{ $count_followings }}</span></a></li>
                 <li role="presentation" class="{{ Request::is('users/*/followers') ? 'active' : '' }}"><a href="{{ route('users.followers', ['id' => $user->id]) }}">フォロワー <span class="badge">{{ $count_followers }}</span></a></li>
             </ul>
-            @if (count($tweets) > 0)
-                @include('tweets.tweets', ['tweets' => $tweets])
-            @endif
+            @include('users.users', ['users' => $users])
         </div>
     </div>
 @endsection

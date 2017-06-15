@@ -11,7 +11,7 @@ use App\Tweet;
 
 class TweetsController extends Controller
 {
-    
+    //タイムライン用のアクション
     public function index()
     {
         $data = [];
@@ -59,7 +59,13 @@ class TweetsController extends Controller
     
     public function show($id)
     {
-        //
+        $tweet = Tweet::find($id);
+        $user = $tweet->user;
+        
+        return view('tweets.show', [
+            'tweet' => $tweet,
+            'user' => $user,
+        ]);
     }
 
     

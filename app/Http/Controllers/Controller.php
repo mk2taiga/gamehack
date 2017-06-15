@@ -13,9 +13,13 @@ abstract class Controller extends BaseController
     
     public function counts($user) {
         $count_tweets = $user->tweets()->count();
+        $count_followings = $user->followings()->count();
+        $count_followers = $user->followers()->count();
         
         return [
             'count_tweets' => $count_tweets,
+            'count_followings' => $count_followings,
+            'count_followers' => $count_followers,
         ];
     }
 }
