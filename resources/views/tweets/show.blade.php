@@ -22,6 +22,9 @@
 @section('content')
     <div class="content-box">
         <p class="show_tweet_content">{{ $tweet->content }}</p>
+        <div class="favorite-button-bottom">
+            @include('user_favorite.favorite_button', ['tweet' => $tweet])
+        </div>
     </div>
     <div class="comment-box">
         <div class="comment-box-inner">

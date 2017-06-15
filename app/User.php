@@ -84,4 +84,42 @@ class User extends Model implements AuthenticatableContract,
         return $this->followings()->where('follow_id', $userId)->exists();
     }
     //ここまで
+    
+    //お気に入りのメソッド、リレーション
+    public function favoritings()
+    {
+        return $this->belongsToMany(Tweet::class, 'user_favorite', 'user_id', 'tweet_id')->withTimestamps();
+    }
+    
+    //お気に入りのメソッド追加
+    public function favorite($tweetId)
+    {
+        $exist = $this->is_favorite($tweetId);
+        
+        if ($exist) {
+            return false;
+        }else {
+            $this->favoritings()->attach($tweetId);
+            return true;
+        }
+    }
+    
+    public function unfavorite($tweetId)
+    {
+        $exist = $this->is_favorite($tweetId);
+        
+        if ($exist) {
+            $this->favoritings()->detach($tweetId);
+            return true;
+        }else {
+            return false;
+        }
+    }
+    
+    public function is_favorite($tweetId)
+    {
+        return $this->favoritings()->where('tweet_id', $tweetId)->exists();
+    }
+    //ここまで
+    
 }

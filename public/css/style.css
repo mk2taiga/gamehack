@@ -11,10 +11,11 @@
 
 .btn.btn-hack {
     background-color: #00b0ad;
+    color: #FFFFFF;
 }
 
-input.btn {
-    color: #FFFFFF;
+.btn.btn-hack:hover {
+    color: #000000;
 }
 
 .panel-default .panel-heading {
@@ -120,6 +121,15 @@ tr td.avatar_table {
     border-bottom: solid;
     border-bottom-width: thin;
     border-bottom-color: #cccccc;
+}
+
+.favorite-button-bottom {
+    margin: 50px 0 10px 0;
+}
+
+.btn-long {
+    color: #00b0ad;
+    width: 200px;
 }
 
 .comment-box {
