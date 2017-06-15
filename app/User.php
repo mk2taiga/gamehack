@@ -26,6 +26,15 @@ class User extends Model implements AuthenticatableContract,
     {
         return $this->hasMany(Tweet::class);
     }
+    
+    //タイムライン用のメソッド
+    public function feed_tweets()
+    {
+        $follow_user_ids = $this->followings()->lists('users.id')->toArray();
+        $follow_user_ids[] = $this->id;
+        return Tweet::whereIn('user_id', $follow_user_ids);
+    }
+    
     //フォローのためのメソッド
     public function followings()
     {

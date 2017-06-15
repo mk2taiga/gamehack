@@ -17,14 +17,13 @@ class TweetsController extends Controller
         $data = [];
         if (\Auth::check()) {
             $user = \Auth::user();
-            $tweets = Tweet::orderBY('created_at', 'desc')->paginate(10);
+            $tweets = $user->feed_tweets()->orderBy('created_at', 'desc')->paginate(10);
             
             $data = [
                 'user' => $user,
                 'tweets' => $tweets,
             ];
         }
-        
         return view('tweets.index', $data);
     }
 
