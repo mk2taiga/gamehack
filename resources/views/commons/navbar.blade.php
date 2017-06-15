@@ -10,18 +10,20 @@ avbar-collapse-1" aria-expanded="false">
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="/">GameHack</a>
-                <form class="navbar-form navbar-left" role="search">
-                  <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
-                  </div>
-                  <button type="submit" class="btn btn-default">検索</button>
-                </form>
+                @if (Auth::check())
+                    <form class="navbar-form navbar-left" role="search">
+                      <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                      </div>
+                      <button type="submit" class="btn btn-default">検索</button>
+                    </form>
+                @endif
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     @if (Auth::check())
                         <li>
-                            <a href="#">
+                            <a href="{{ route('tweets.create') }}">
                                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                 投稿する
                             </a>

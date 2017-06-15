@@ -7,10 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\User;
 use App\Tweet;
 
-class WelcomeController extends Controller
+class TweetsController extends Controller
 {
     
     public function index()
@@ -26,19 +25,35 @@ class WelcomeController extends Controller
             ];
         }
         
-        return view('welcome.welcome', $data);
+        return view('tweets.index', $data);
     }
 
     
     public function create()
     {
-        //
+        $tweet = new Tweet;
+        
+        return view('tweets.create', [
+            'tweet' => $tweet,
+        ]);
     }
 
     
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required|max:100',
+            'game_name' => 'required|max:100',
+            'content' => 'required',
+        ]);
+        
+        $request->user()->tweets()->create([
+            'title' => $request->title,
+            'game_name' => $request->game_name,
+            'content' => $request->content,
+        ]);
+        
+        return redirect('/');
     }
 
     
@@ -59,7 +74,7 @@ class WelcomeController extends Controller
         //
     }
 
-    
+   
     public function destroy($id)
     {
         //
