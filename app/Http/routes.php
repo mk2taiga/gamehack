@@ -30,5 +30,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('favoriters', 'UsersController@favoriters')->name('users.favoriters');
     });
     
+    //検索用のルーティング
+    Route::get('tweets/search', 'TweetsController@search')->name('tweets.search');
     Route::resource('tweets', 'TweetsController');
 });

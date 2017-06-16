@@ -11,12 +11,16 @@ avbar-collapse-1" aria-expanded="false">
                 </button>
                 <a class="navbar-brand" href="/">GameHack</a>
                 @if (Auth::check())
-                    <form class="navbar-form navbar-left" role="search">
-                      <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search">
-                      </div>
-                      <button type="submit" class="btn btn-default">検索</button>
-                    </form>
+                <!--検索機能の部分-->
+                <div class="navbar-form navbar-left" role="search">
+                    {!! Form::open(['route' => ['tweets.search'], 'method' => 'get']) !!}
+                        <div class="form-group">
+                            {!! Form::text('keyword', null, ['class' => "form-control", 'placeholder' => "キーワードを入力"]) !!}
+                        </div>
+                        {!! Form::submit('検索', ['class' => "btn btn-default"]) !!}
+                    {!! Form::close() !!}
+                </div>
+                <!--ここまで-->
                 @endif
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

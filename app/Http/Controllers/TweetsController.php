@@ -11,6 +11,7 @@ use App\Tweet;
 
 class TweetsController extends Controller
 {
+    
     //タイムライン用のアクション
     public function index()
     {
@@ -83,5 +84,24 @@ class TweetsController extends Controller
     public function destroy($id)
     {
         //
+    }
+    
+    //検索用のアクション
+    public function search(Request $request) {
+        $keyword = $request->keyword;
+        $query = Tweet::query();
+        
+        if (\Auth::check()){
+            if (!empty($keyword)) {
+                $tweets = $query->where('title', 'LIKE', '%'.$keyword."%")->orderBy('created_at', 'desc')->paginate(10);
+            }else {
+                $tweets = Tweet::orderBy('created_at', 'desc')->paginate(10);
+            }
+        }
+        
+        return view('tweets.search', [
+            'tweets' => $tweets,
+        ]);
+        
     }
 }
