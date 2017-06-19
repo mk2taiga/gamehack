@@ -118,6 +118,7 @@ tr td.avatar_table {
 }
 
 .content-box {
+    margin-bottom: 30px;
     border-bottom: solid;
     border-bottom-width: thin;
     border-bottom-color: #cccccc;
@@ -125,6 +126,10 @@ tr td.avatar_table {
 
 .favorite-button-bottom {
     margin: 50px 0 10px 0;
+}
+
+.delete-button-tweet {
+    margin-bottom: 10px;
 }
 
 .btn-long {
@@ -141,4 +146,8 @@ tr td.avatar_table {
 
 .comment-box .comment-box-inner {
     margin: 10px;
+}
+
+.comment-index-box {
+    margin-top: 10px;
 }

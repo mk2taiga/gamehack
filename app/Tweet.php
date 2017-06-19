@@ -13,6 +13,12 @@ class Tweet extends Model
         return $this->belongsTo(User::class);
     }
     
+    //コメントのリレーション
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+    
     public function favoriters()
     {
         return $this->belongsToMany(User::class, 'user_favorite', 'tweet_id', 'user_id')->withTimestamps();

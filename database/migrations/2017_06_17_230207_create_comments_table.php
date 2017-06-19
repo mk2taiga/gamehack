@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserFavoriteTable extends Migration
+class CreateCommentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,18 +12,16 @@ class CreateUserFavoriteTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_favorite', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('content');
             $table->integer('user_id')->unsigned()->index();
             $table->integer('tweet_id')->unsigned()->index();
             $table->timestamps();
             
-            // 外部キー設定
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            //外部キー
+            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('tweet_id')->references('id')->on('tweets')->onDelete('cascade');
-            
-            // user_idとfollow_idの組み合わせの重複を許さない
-            $table->unique(['user_id', 'tweet_id']);
         });
     }
 
@@ -34,6 +32,6 @@ class CreateUserFavoriteTable extends Migration
      */
     public function down()
     {
-        Schema::drop('user_favorite');
+        Schema::drop('comments');
     }
 }

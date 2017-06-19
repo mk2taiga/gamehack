@@ -12,7 +12,7 @@ Route::post('login', 'Auth\AuthController@postLogin')->name('login.post');
 Route::get('logout', 'Auth\AuthController@getLogout')->name('logout.get');
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::resource('users', 'UsersController', ['only' => ['show']]);
+    Route::resource('users', 'UsersController', ['only' => ['show', 'edit', 'update']]);
     //フォロー用のルーティング
     Route::group(['prefix' => 'users/{id}'], function () { 
         Route::post('follow', 'UserFollowController@store')->name('user.follow');
@@ -28,9 +28,15 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('favorite', 'UserFavoriteController@store')->name('user.favorite');
         Route::delete('unfavorite', 'UserFavoriteController@destroy')->name('user.unfavorite');
         Route::get('favoriters', 'UsersController@favoriters')->name('users.favoriters');
+        //コメント用のルーティンング
+        Route::post('comments', 'CommentsController@store')->name('comments.store');
+        Route::delete('comments/{comments}', 'CommentsController@destroy')->name('comments.destroy');
     });
     
     //検索用のルーティング
     Route::get('tweets/search', 'TweetsController@search')->name('tweets.search');
-    Route::resource('tweets', 'TweetsController');
+    //ツイート用のルーテイング
+    Route::resource('tweets', 'TweetsController', ['only' => ['index', 'show', 'create', 'store', 'destroy']]);
+    
+    
 });

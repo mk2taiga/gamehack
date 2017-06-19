@@ -122,4 +122,10 @@ class User extends Model implements AuthenticatableContract,
     }
     //ここまで
     
+    //コメントのリレーション
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+    
 }

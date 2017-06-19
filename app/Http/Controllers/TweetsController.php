@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Tweet;
+use App\Comment;
 
 class TweetsController extends Controller
 {
@@ -53,7 +54,7 @@ class TweetsController extends Controller
             'content' => $request->content,
         ]);
         
-        return redirect('/');
+        return redirect('/')->with('success', '投稿しました。');
     }
 
     
@@ -61,17 +62,19 @@ class TweetsController extends Controller
     {
         $tweet = Tweet::find($id);
         $user = $tweet->user;
-        
+        $comments = $tweet->comments()->orderBy('created_at', 'desc')->paginate(10);
+
         return view('tweets.show', [
             'tweet' => $tweet,
             'user' => $user,
+            'comments' => $comments,
         ]);
     }
 
     
     public function edit($id)
     {
-        //
+        
     }
 
     
@@ -80,10 +83,16 @@ class TweetsController extends Controller
         //
     }
 
-   
+   //投稿削除用のアクション
     public function destroy($id)
     {
-        //
+        $tweet = Tweet::find($id);
+        
+        if (\Auth::user()->id === $tweet->user_id) {
+            $tweet->delete();
+        }
+        
+        return redirect('/')->with('success', '投稿を削除しました。');
     }
     
     //検索用のアクション

@@ -14,7 +14,7 @@
                 </div>
                 @include('user_follow.follow_button', ['user' => $user])
                 @if (Auth::user()->id == $user->id)
-                    <button type="submit" class="btn btn-default">プロフィール編集</button>
+                    <a href="{{ route('users.edit', ['id' => $user->id]) }}"><button type="submit" class="btn btn-default">プロフィール編集</button></a>
                 @endif
             </div>
         </aside>
