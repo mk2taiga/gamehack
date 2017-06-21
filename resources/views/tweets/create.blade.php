@@ -9,7 +9,7 @@
             {!! Form::text('game_name', null, ['placeholder' => '記事にする記事にするゲームのタイトル', 'class' => 'form-control']) !!}
         </div>
         <div class="form-group">
-            {!! Form::textarea('content', null, ['placeholder' => 'ゲームの知識を共有しよう', 'class' => 'form-control', 'rows' => '30']) !!}
+            {!! Form::textarea('content', null, ['placeholder' => 'Markdown記法でゲームの知識を共有しよう', 'class' => 'form-control', 'rows' => '30']) !!}
         </div>
         <div class="button-point">
             {!! Form::submit('GameHackに投稿', ['class' => 'btn btn-hack']) !!}

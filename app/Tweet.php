@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use cebe\markdown\Markdown as Markdown;
 
 class Tweet extends Model
 {
@@ -22,6 +23,19 @@ class Tweet extends Model
     public function favoriters()
     {
         return $this->belongsToMany(User::class, 'user_favorite', 'tweet_id', 'user_id')->withTimestamps();
+    }
+    
+    //マークダウンをパースする
+    public function parse()
+    {
+        $parser = new Markdown();
+    
+        return $parser->parse($this->content);
+    }
+    
+    public function getMarkContentAttribute()
+    {
+        return $this->parse();
     }
     
 }
