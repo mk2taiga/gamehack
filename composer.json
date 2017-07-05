@@ -9,7 +9,7 @@
         "laravel/framework": "5.1.*",
         "laravelcollective/html": "5.1.*",
         "thomaswelton/laravel-gravatar": "~1.0",
-        "cebe/markdown": "^1.1"
+        "cebe/markdown": "~1.1.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

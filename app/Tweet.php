@@ -30,7 +30,7 @@ class Tweet extends Model
     {
         $parser = new Markdown();
     
-        return $parser->parse($this->content);
+        return $parser->parse(htmlspecialchars($this->content));
     }
     
     public function getMarkContentAttribute()
